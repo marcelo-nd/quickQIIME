@@ -1,0 +1,4 @@
+#!/bin/bash
+
+
+./manifestGenerator.sh
