@@ -1,0 +1,8 @@
+executable = /srv/home/anavarro/metag_hidro2/3_ejecutables/1_import_seqs.sh
+getenv= True
+Arguments = /srv/home/anavarro/metag_hidro2/1_secuencias/seqs_manifest.txt /srv/home/anavarro/metag_hidro2/2_resultados/1_demultiplexed_pairedEnd_seqs.qza
+output= /srv/home/anavarro/metag_hidro2/4_outs/1_import_seqs$(Process).out 
+log  = /srv/home/anavarro/metag_hidro2/5_logs/1_import_seqs$(Process).log
+error= /srv/home/anavarro/metag_hidro2/6_errores/1_import_seqs$(Process).error
+request_cpus=5
+queue
