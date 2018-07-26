@@ -1,13 +1,13 @@
 #!/bin/bash
 
-project_name=$1
-
-project_path=$2
+project_path=$1
 
 # Create project directory
-mkdir $project_path/$project_name
+mkdir $project_path
 
 # Create directories for results and various logs
-mkdir $project_path/$project_name/1_sequences $project_path/$project_name/2_results $project_path/$project_name/3_output_files $project_path/$project_name/4_log_files $project_path/$project_name/5_error_files
+mkdir $project_path/1_sequences $project_path/2_results $project_path/3_output_files $project_path/4_log_files $project_path/5_error_files $project_path/tmp
 
-echo Directory structure generated succesfully at \"$project_path/$project_name\".
+TMPDIR=$project_path/tmp
+
+echo Directory structure generated succesfully at \"$project_path\".

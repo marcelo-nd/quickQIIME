@@ -1,10 +1,7 @@
 #!/bin/bash
 
-in_patung=y
+echo executing test file
 
-if [ $in_patung = y ]
-then
-echo Estas en patung
-else
-echo no estas en patung
-fi
+/home/chelo
+
+rm -r  ../agave
