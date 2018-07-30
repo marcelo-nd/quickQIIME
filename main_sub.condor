@@ -1,0 +1,7 @@
+executable = ./main_condor.sh
+Arguments = /srv/home/anavarro/datos_prueba/ /srv/home/anavarro/ agave
+output= /srv/home/anavarro/agave/3_output_files/1_import_seqs$(Process).out 
+log  = /srv/home/anavarro/agave/4_log_files/1_import_seqs$(Process).log
+error= /srv/home/anavarro/agave/5_error_files/1_import_seqs$(Process).error
+request_cpus=40
+queue

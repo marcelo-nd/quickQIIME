@@ -2,13 +2,13 @@
 
 ################ Variables. ###############
 
-user_path
+user_files_path=$1
 
-project_name
+user_path=$2
 
-user_files_path
+project_name=$3
 
-workflow_id
+# workflow_id=$4
 
 # project path variable
 project_path=$user_path/$project_name
@@ -33,4 +33,19 @@ wget -P project_path/6_databases/ https://data.qiime2.org/2018.6/common/gg-13-8-
 
 wget -P project_path/6_databases/ https://data.qiime2.org/2018.6/common/silva-132-99-nb-classifier.qza
 
-            
+# Sourcing qiime2
+# source /srv/home/anavarro/miniconda3/bin/activate qiime2
+
+# Exporting TEMPDIR
+
+#export TMPDIR=$project_path/tmp
+
+# Step 1 Importing sequences.
+
+# echo Importing sequences
+
+# qiime tools import \
+# --type 'SampleData[PairedEndSequencesWithQuality]' \
+# --input-path $project_path/1_sequences/ \
+# --source-format PairedEndFastqManifestPhred33 \
+# --output-path $project_path/2_results/1_demultiplexed_pairedEnd_seqs.qza \
