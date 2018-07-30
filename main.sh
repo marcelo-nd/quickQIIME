@@ -4,7 +4,7 @@ echo Type project name \(no spaces\).
 
 read project_name
 
-echo Enter path.
+echo Enter full path.
 
 read user_path
 
@@ -22,7 +22,16 @@ done
 
 ################ 0 Execute script for generating folder structure. ###############
 
+# project path variable
 project_path=$user_path/$project_name
+
+# Checking if directory with the same name exists.
+
+if [ -d "$project_path" ]; then
+  # Control will enter here if $DIRECTORY exists.
+  echo Directory already exists; please change the name of old directory and press enter.
+  read -p "Press enter to continue"
+fi
 
 echo Generating directory structure for project \"$project_name\".
 
@@ -30,18 +39,46 @@ echo Generating directory structure for project \"$project_name\".
 ./0_scripts/0_generateDirectoryStructure.sh $project_path
 #
 
-############### 1 Execute script for generating manifest file. ###############
-#IMPLEMENT LATER
 
-# echo Generating manifest file
+# Copying user files
 
-# ./0_scripts/1_manifestGenerator.sh
+echo Enter full path for you files.
 
-# 
+read user_files_path
+
+echo Copying files to $project_path/1_sequences/
+
+cp -R user_files_path/. $project_path/1_sequences/
+
+
+############### 1 Asking for manifest file. ###############
+
+manifest="_manifest.txt"
+
+# Check if manifest files exists; if not ask the user to copy it.
+
+until [ -e "$project_name $manifest" ]
+            then
+                echo "Manifest file found!"
+            else
+                echo "Manifest files not found; please paste it at 1_sequences directory and press enter"
+
+                read -p "Press enter to continue"
+
+            fi 
 
 
 ############### 2 Read user input for workflow selection. ###############
 #IMPLEMENT LATER
+
+workflow_id=999
+
+until [ $workflow_id = 1 ] || [ $workflow_id = 2 ] || [ $workflow_id = 3 ]
+do
+    echo Workflow selection \(1: greengenes; 2: greengenes + refSeq; 3: greengenes + SILVA\) /?
+    read workflow_id
+    #echo in_patung
+done
 
 
 # Revisar si existe la base de datos o descargarla si es necesario.
@@ -55,18 +92,27 @@ echo Generating directory structure for project \"$project_name\".
 
             if [ -e ! 6_databases/gg-13-8-99-nb-classifier.qza ]
             then
-                echo "Greengenes database found!"
+                echo "Greengenes 13-8 database found!"
             else
-                echo "Greengenes database not found! Will be donwloaded"
+                echo "Greengenes 13-8 database not found! Will be donwloaded"
 
                 # Downloading database
 
                 wget -P project_path/6_databases/ https://data.qiime2.org/2018.6/common/gg-13-8-99-nb-classifier.qza
 
-                # Extracting databse
-
             fi
 
+            if [ -e ! 6_databases/silva-132-99-nb-classifier.qza ]
+            then
+                echo "SILVA 132 database found!"
+            else
+                echo "SILVA 132 database not found! Will be donwloaded"
+
+                # Downloading database
+
+                wget -P project_path/6_databases/ https://data.qiime2.org/2018.6/common/silva-132-99-nb-classifier.qza
+
+            fi
     fi
 
     
@@ -98,6 +144,7 @@ chmod +xrw -R 0_scripts/
 if [ $in_patung = y ]
     then
     echo Executing QIIME in patung.
+    echo submiting condor files.
     #condor_sumbit ./0_scripts/2_import_sequences.condor
 
     #./2_import_sequences.condor
@@ -131,6 +178,22 @@ elif [ $in_patung = n ]
     echo Classifitacion greengenes
     
     ./0_scripts/9_taxonomy_gg_sk.sh
+
+    
+fi
+
+
+
+if [ $in_patung = y ]
+    then
+    echo Executing QIIME in patung.
+    echo submiting condor files.
+    #condor_sumbit ./0_scripts/2_import_sequences.condor
+
+    #./2_import_sequences.condor
+elif [ $in_patung = n ]
+    then 
+    
 
     
 fi
